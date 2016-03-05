@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\FadingText.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\ImageDisplay.cs" />
     <Compile Include="Assets\Scripts\MovingScript.cs" />
     <Compile Include="Assets\Scripts\PlayerHealth.cs" />
     <Compile Include="Assets\Scripts\PlayerManager.cs" />
