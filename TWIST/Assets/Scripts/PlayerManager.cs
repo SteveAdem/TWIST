@@ -21,9 +21,9 @@ public class PlayerManager : MonoBehaviour
             4f
         );
 
-        float x = 90;
-        float y = GetComponent<Rigidbody>().velocity.x * -tilt;
-        float z = 0;
+        float x = 0;
+        float y = 0;
+        float z = GetComponent<Rigidbody>().velocity.x * -tilt;
         GetComponent<Rigidbody>().rotation = Quaternion.Euler(x,y,z);
 
     }
