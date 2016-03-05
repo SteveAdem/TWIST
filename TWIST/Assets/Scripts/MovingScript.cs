@@ -7,7 +7,7 @@ public class MovingScript : MonoBehaviour
 
     void Start()
     {
-
-        GetComponent<Rigidbody>().velocity = transform.forward * speed;
+        GetComponent<Rigidbody>().rotation = new Quaternion(0.0f, 0.0f, 0.0f, 1.0f);
+        GetComponent<Rigidbody>().velocity = -transform.forward * speed;
     }
 }

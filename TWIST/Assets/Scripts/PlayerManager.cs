@@ -15,9 +15,9 @@ public class PlayerManager : MonoBehaviour
 
         GetComponent<Rigidbody>().position = new Vector3
         (
-            Mathf.Clamp(GetComponent<Rigidbody>().position.x, -2, 2),
+            Mathf.Clamp(GetComponent<Rigidbody>().position.x, -10, 10),
             2f,
-            Mathf.Clamp(GetComponent<Rigidbody>().position.z, -4, 4)
+            4f
         );
     }
 }
