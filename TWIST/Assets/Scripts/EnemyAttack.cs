@@ -8,7 +8,7 @@ public class EnemyAttack : MonoBehaviour
     public int attackDamage = 10;
 
 
-    Animator anim;
+    //Animator anim;
     GameObject player;
     PlayerHealth playerHealth;
     bool playerInRange;
@@ -19,12 +19,12 @@ public class EnemyAttack : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerHealth>();
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
     }
 
 
     void OnTriggerEnter(Collider other)
-    {
+    {	
         if (other.gameObject == player)
         {
             playerInRange = true;
@@ -50,13 +50,14 @@ public class EnemyAttack : MonoBehaviour
         }
         if (playerHealth.currentHealth <= 0)
         {
-            anim.SetTrigger("PlayerDead");
+            //anim.SetTrigger("PlayerDead");
         }
     }
 
 
     void Attack()
     {
+		Debug.Log ("attack:"+playerHealth.currentHealth);
         timer = 0f;
         if (playerHealth.currentHealth > 0)
         {

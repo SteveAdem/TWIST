@@ -12,38 +12,34 @@ public class PlayerHealth : MonoBehaviour
     public float flashSpeed = 5f;
     public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
 
-
-    Animator anim;
-    AudioSource playerAudio;
+    //Animator anim;
+    //AudioSource playerAudio;
     bool isDead;
     bool damaged;
 
 
     void Awake()
     {
-        anim = GetComponent<Animator>();
-        playerAudio = GetComponent<AudioSource>();
-
+        //anim = GetComponent<Animator>();
+        //playerAudio = GetComponent<AudioSource>();
         currentHealth = startingHealth;
     }
 
 
     void Update()
     {
-
         damaged = false;
     }
-
 
     public void TakeDamage(int amount)
     {
         damaged = true;
-
         currentHealth -= amount;
-
         healthSlider.value = currentHealth;
 
-        playerAudio.Play();
+		Debug.Log ("health:" + currentHealth);
+
+        //playerAudio.Play();
 
         if (currentHealth <= 0 && !isDead)
         {
@@ -56,11 +52,11 @@ public class PlayerHealth : MonoBehaviour
     {
         isDead = true;
 
-
-        anim.SetTrigger("Die");
+		Debug.Log ("DEAD!!!");
+        //anim.SetTrigger("Die");
 
         //playerAudio.clip = deathClip;
-        playerAudio.Play();
+        //playerAudio.Play();
 
     }
 }

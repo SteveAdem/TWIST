@@ -5,6 +5,7 @@ public class DestroyOnHit : MonoBehaviour
 {
     void OnTriggerEnter(Collider other)
     {
-        Destroy(other.gameObject);
+		Debug.Log ("DestroyOnHit:"+other);
+		Destroy(gameObject);
     }
 }
