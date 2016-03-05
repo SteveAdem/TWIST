@@ -5,7 +5,10 @@ public class DestroyOnHit : MonoBehaviour
 {
     void OnTriggerEnter(Collider other)
     {
-		Debug.Log ("DestroyOnHit:"+other);
-		Destroy(gameObject);
+
+        if (other.gameObject.tag == "Player")
+        {
+            Debug.Log("INIMIGO ATINGIU O PLAYER");
+        }
     }
 }
