@@ -1,8 +1,4 @@
 sceneSetups:
-<<<<<<< HEAD
-- path: Assets/_Scenes/merge1.unity
-=======
-- path: Assets/_Scenes/NewOne.unity
->>>>>>> origin/master
+- path: Assets/_Scenes/FirstScene.unity
   isLoaded: 1
   isActive: 1
