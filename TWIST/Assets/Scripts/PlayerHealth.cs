@@ -12,23 +12,33 @@ public class PlayerHealth : MonoBehaviour
 	public float flashSpeed = 5f;
 	public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
 
+	[SerializeField]
+	private float fuelDepletionSpeed = 0.1f;
+
 	//Animator anim;
 	//AudioSource playerAudio;
 	bool isDead;
 	bool damaged;
 
+	float timer;
 
 	void Awake()
 	{
 		//anim = GetComponent<Animator>();
 		//playerAudio = GetComponent<AudioSource>();
 		currentHealth = startingHealth;
+		timer = 0.0f;
 	}
 
 
 	void Update()
 	{
 		damaged = false;
+		timer += Time.deltaTime;
+		if (timer >= fuelDepletionSpeed) {
+			TakeDamage (1);
+			timer = 0.0f;
+		}
 	}
 
 	public void TakeDamage(int amount)
