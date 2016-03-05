@@ -21,8 +21,10 @@ public class PlayerManager : MonoBehaviour
             4f
         );
 
-        
-        GetComponent<Rigidbody>().rotation = Quaternion.Euler(0.0f, GetComponent<Rigidbody>().velocity.x * -tilt, 0.0f);
+        float x = 90;
+        float y = GetComponent<Rigidbody>().velocity.x * -tilt;
+        float z = 0;
+        GetComponent<Rigidbody>().rotation = Quaternion.Euler(x,y,z);
 
     }
 }
