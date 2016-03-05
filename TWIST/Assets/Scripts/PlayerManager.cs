@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerManager : MonoBehaviour
 {
     public float speed;
+    public float tilt;
 
     void FixedUpdate()
     {
@@ -19,5 +20,9 @@ public class PlayerManager : MonoBehaviour
             2f,
             4f
         );
+
+        
+        GetComponent<Rigidbody>().rotation = Quaternion.Euler(0.0f, GetComponent<Rigidbody>().velocity.x * -tilt, 0.0f);
+
     }
 }
