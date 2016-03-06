@@ -35,6 +35,7 @@ public class SpawnObjects : MonoBehaviour
     {
         yield return new WaitForSeconds(startWait);
 		spawningHalted = false;
+        Debug.Log("start spawning!");   
 
     }
 
@@ -60,28 +61,29 @@ public class SpawnObjects : MonoBehaviour
 
     void Update()
     {
-		if (spawningHalted)
-			return;
-        if (GameManagerScript.DimNum == 2)
+        if (!spawningHalted)
         {
-
-            if (!isSpawning)
+            if (GameManagerScript.DimNum == 2)
             {
-                isSpawning = true;
-                int SideObjsIndex = Random.Range(0, SideObjs.Length);
-                StartCoroutine(SpawnObject(SideObjsIndex, Random.Range(minTime, maxTime), 2));
+
+                if (!isSpawning)
+                {
+                    isSpawning = true;
+                    int SideObjsIndex = Random.Range(0, SideObjs.Length);
+                    StartCoroutine(SpawnObject(SideObjsIndex, Random.Range(minTime, maxTime), 2));
+                }
+
             }
 
-        }
-
-        if (GameManagerScript.DimNum == 1)
-        {
-
-            if (!isSpawning)
+            if (GameManagerScript.DimNum == 1)
             {
-                isSpawning = true;
-                int TopObjsIndex = Random.Range(0, TopObjs.Length);
-                StartCoroutine(SpawnObject(TopObjsIndex, Random.Range(minTime, maxTime), 1));
+
+                if (!isSpawning)
+                {
+                    isSpawning = true;
+                    int TopObjsIndex = Random.Range(0, TopObjs.Length);
+                    StartCoroutine(SpawnObject(TopObjsIndex, Random.Range(minTime, maxTime), 1));
+                }
             }
         }
     }
