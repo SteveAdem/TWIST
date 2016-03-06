@@ -11,7 +11,8 @@ public class PlayerHealth : MonoBehaviour
 	// public AudioClip deathClip;
 	public float flashSpeed = 5f;
 	public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
-    public bool isDepleting = false;
+	public bool isDepleting = false;
+
 
 	[SerializeField]
 	private float fuelDepletionSpeed = 0.1f;
@@ -29,16 +30,16 @@ public class PlayerHealth : MonoBehaviour
 		//playerAudio = GetComponent<AudioSource>();
 		currentHealth = startingHealth;
 		timer = 0.0f;
-        isDepleting = false;
-
-    }
+	}
 
 
 	void Update()
 	{
+		if (!isDepleting)
+			return;
 		damaged = false;
 		timer += Time.deltaTime;
-		if (timer >= fuelDepletionSpeed && isDepleting) {
+		if (timer >= fuelDepletionSpeed) {
 			TakeDamage (1);
 			timer = 0.0f;
 		}
@@ -50,7 +51,7 @@ public class PlayerHealth : MonoBehaviour
 		currentHealth -= amount;
 		healthSlider.value = currentHealth;
 
-	//	Debug.Log ("health:" + currentHealth);
+		Debug.Log ("health:" + currentHealth);
 
 		//playerAudio.Play();
 
@@ -65,7 +66,7 @@ public class PlayerHealth : MonoBehaviour
 	{
 		isDead = true;
 
-	//	Debug.Log ("DEAD!!!");
+		Debug.Log ("DEAD!!!");
 		//anim.SetTrigger("Die");
 
 		//playerAudio.clip = deathClip;

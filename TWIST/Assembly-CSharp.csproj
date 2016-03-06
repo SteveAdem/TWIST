@@ -48,6 +48,7 @@
      <Compile Include="Assets\Scripts\BGScroller.cs" />
      <Compile Include="Assets\Scripts\CameraAnimEvents.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
+     <Compile Include="Assets\Scripts\CrystalVersusPlayer.cs" />
      <Compile Include="Assets\Scripts\DestroyByTime.cs" />
      <Compile Include="Assets\Scripts\DestroyOnHit.cs" />
      <Compile Include="Assets\Scripts\EnemyAttack.cs" />
@@ -64,6 +65,7 @@
      <Compile Include="Assets\Scripts\RandomRotator.cs" />
      <Compile Include="Assets\Scripts\SideObjPreferences.cs" />
      <Compile Include="Assets\Scripts\SpawnObjects.cs" />
+     <Compile Include="Assets\Scripts\TwistBang.cs" />
      <Compile Include="Assets\Scripts\WorldAnimBehaviour.cs" />
      <Compile Include="Assets\Scripts\WorldSetRotation.cs" />
  <Reference Include="UnityEngine.UI">
