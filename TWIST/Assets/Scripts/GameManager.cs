@@ -85,12 +85,12 @@ public class GameManager : MonoBehaviour {
 		if (ambience.isPlaying) 
 			ambience.Pause ();
 		if (dim == 1) { // space
-			music = transform.GetChild (1).gameObject.GetComponent<AudioSource>();
-			ambience = transform.GetChild (4).gameObject.GetComponent<AudioSource>();
+            music = GameObject.Find("SpaceMusic").GetComponent<AudioSource>();
+			ambience = GameObject.Find("SpaceAmbience").GetComponent<AudioSource>();
 		}
 		if (dim == 2) { // underground
-			music = transform.GetChild (2).gameObject.GetComponent<AudioSource>();
-			ambience = transform.GetChild (3).gameObject.GetComponent<AudioSource>();
+			music = GameObject.Find("ChickenMusic").GetComponent<AudioSource>();
+			ambience = GameObject.Find("UndergroundAmbience").GetComponent<AudioSource>();
 		}
 		music.UnPause ();
 		ambience.UnPause ();
@@ -112,6 +112,8 @@ public class GameManager : MonoBehaviour {
     void Update()
     {
 		startMusic ();
+
+        //introText();
 
 		elapsedTime += Time.deltaTime;
 		if (elapsedTime > nextTwist) {
