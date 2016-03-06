@@ -59,7 +59,6 @@
      <Compile Include="Assets\Scripts\PlayerManager.cs" />
      <Compile Include="Assets\Scripts\PlayerScore.cs" />
      <Compile Include="Assets\Scripts\RandomRotator.cs" />
-     <Compile Include="Assets\Scripts\ScoreManager.cs" />
      <Compile Include="Assets\Scripts\WorldAnimBehaviour.cs" />
      <Compile Include="Assets\Scripts\WorldSetRotation.cs" />
  <Reference Include="UnityEngine.UI">

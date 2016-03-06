@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -10,14 +11,21 @@ public class GameController : MonoBehaviour
     public float startWait;
     public float waveWait;
 
+	[SerializeField]
+	Text playerSpeech;
+
     void Start()
     {
         StartCoroutine(SpawnWaves());
+		StartCoroutine (StartSpeech());
     }
 
     IEnumerator SpawnWaves()
     {
         yield return new WaitForSeconds(startWait);
+		GameObject player = GameObject.FindGameObjectWithTag("Player");
+		PlayerScore ps = player.GetComponent<PlayerScore> ();
+		ps.isScoring = true;
         while (true)
         {
             for (int i = 0; i < hazardCount; i++)
@@ -30,4 +38,16 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(waveWait);
         }
     }
+
+	IEnumerator StartSpeech() {
+		yield return new WaitForSeconds(2);
+		FadingText fd = playerSpeech.GetComponent<FadingText> ();
+		fd.fade("I sense something...");
+		yield return new WaitForSeconds(fd.fadeTime+2);
+		fd.fade("I sense the world is not right...");
+		yield return new WaitForSeconds(fd.fadeTime+2);
+		fd.fade("I sense a connection...");
+		yield return new WaitForSeconds(fd.fadeTime+2);
+		fd.fade("I must keep flying...");
+	}
 }
