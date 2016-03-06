@@ -50,7 +50,7 @@ public class PlayerHealth : MonoBehaviour
 		currentHealth -= amount;
 		healthSlider.value = currentHealth;
 
-		Debug.Log ("health:" + currentHealth);
+	//	Debug.Log ("health:" + currentHealth);
 
 		//playerAudio.Play();
 
@@ -65,7 +65,7 @@ public class PlayerHealth : MonoBehaviour
 	{
 		isDead = true;
 
-		Debug.Log ("DEAD!!!");
+	//	Debug.Log ("DEAD!!!");
 		//anim.SetTrigger("Die");
 
 		//playerAudio.clip = deathClip;

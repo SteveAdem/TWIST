@@ -65,11 +65,11 @@ public class GameManager : MonoBehaviour {
     }
 
     public void SetCamTop(){
-        Camera.main.transform.rotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
+    //    Camera.main.transform.rotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
     }
 
     public void SetCamSide() {
-        Camera.main.transform.rotation = Quaternion.Euler(90.0f, 0.0f, 90.0f);
+    //    Camera.main.transform.rotation = Quaternion.Euler(90.0f, 0.0f, 90.0f);
     }
 
     void Update()
@@ -81,7 +81,6 @@ public class GameManager : MonoBehaviour {
             ChangeDimension();
         }
 
-        Debug.Log("DIMENSAO: " + DimNum);
     }
 
 

@@ -17,7 +17,7 @@ public class EnemyAttack : MonoBehaviour
 
     void Awake()
     {
-        player = GameObject.Find("Players");
+        player = GameObject.Find("PlayerContainer");
         playerHealth = player.GetComponent<PlayerHealth>();
         //anim = GetComponent<Animator>();
     }

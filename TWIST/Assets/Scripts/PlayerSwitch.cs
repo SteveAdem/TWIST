@@ -11,7 +11,7 @@ public class PlayerSwitch : MonoBehaviour {
 	void Start () {
         ManagerGO = GameObject.Find("GameManager");
         GameManagerScript = ManagerGO.GetComponent<GameManager>();
-        playerTop = transform.FindChild("Player").gameObject;
+        playerTop = transform.FindChild("PlayerContainer").gameObject;
         playerSide = transform.FindChild("Drill").gameObject;
   //      playerSide.transform.localScale = new Vector3(0,0,0);
 	}
