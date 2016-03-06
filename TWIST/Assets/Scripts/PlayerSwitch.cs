@@ -19,7 +19,7 @@ public class PlayerSwitch : MonoBehaviour {
 	void Update () {
 	    
         if(GameManagerScript.DimNum == 1) {
-            playerTop.transform.localScale = new Vector3(30, 30, 30);
+            playerTop.transform.localScale = new Vector3(20, 20, 20);
      //       playerSide.transform.localScale = new Vector3(0,0,0);
         }
 
