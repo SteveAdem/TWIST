@@ -8,6 +8,8 @@
 Library/
 sysinfo.txt
 *.stackdump
+
+TWIST.CSharp.csproj
  
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
