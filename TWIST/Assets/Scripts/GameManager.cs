@@ -19,9 +19,11 @@ public class GameManager : MonoBehaviour {
 	public AudioSource ambience;
 
 	public Text text;
+    [SerializeField]
+	private float minTwistTime;
+    [SerializeField]
+    private float maxTwistTime;
 
-	private float minTwistTime = 10.0f;
-	private float maxTwistTime = 20.0f;
 	private float nextTwist;
 	private float elapsedTime;
 
@@ -30,10 +32,14 @@ public class GameManager : MonoBehaviour {
 	bool bothNarrativesDone = false;
 	bool showingNarrative = false;
 
+    [SerializeField]
+    private PlayerHealth playerHealth;
+
 	public Font[] fontMats;
 
     void Start()
     {
+        playerHealth = GameObject.Find("PlayerContainer").GetComponent<PlayerHealth>();
         GameManagerScript = gameObject.GetComponent<GameManager>();
         DimNum = 1;
         FloorRotationSpeed = 10f;
@@ -41,7 +47,7 @@ public class GameManager : MonoBehaviour {
         CameraAnimController = Camera.main.GetComponent<Animator>();
         WorldSetRotationScript = World.GetComponent<WorldSetRotation>();
 		elapsedTime = 0.0f;
-		nextTwist = Random.Range (5.0f, 10.0f);
+		nextTwist = Random.Range (minTwistTime, maxTwistTime);
     }
 
 
@@ -147,13 +153,13 @@ public class GameManager : MonoBehaviour {
 				bothNarrativesDone = true;
 				showingNarrative = false;
 				elapsedTime = 0.0f;
-				nextTwist = Random.Range (5.0f, 10.0f);
-			}
+				nextTwist = Random.Range(minTwistTime, maxTwistTime);
+            }
 			return;
 		}
 
 		if (!showingNarrative) {
-			if (elapsedTime > nextTwist) {
+			if ((elapsedTime > nextTwist) && !playerHealth.isDead) {
 				ChangeDimension ();
 				if (!secondNarrativeStarted && !bothNarrativesDone) {
 					StartCoroutine (GameObject.Find ("GameManager").GetComponent<GameController> ().StartSecondNarrative ());
@@ -163,17 +169,13 @@ public class GameManager : MonoBehaviour {
 					return;	
 				}
 				elapsedTime = 0.0f;
-				nextTwist = Random.Range (5.0f, 10.0f);
-			}
+				nextTwist = Random.Range(minTwistTime, maxTwistTime);
+            }
 		}
-
-		/*
-        if (Input.GetKeyDown(KeyCode.H))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ChangeDimension();
+            Application.Quit();
         }
-*/
-        Debug.Log("DIMENSAO: " + DimNum);
     }
 
 

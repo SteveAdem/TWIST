@@ -4,7 +4,7 @@ using System.Collections;
 
 public class PlayerScore : MonoBehaviour
 {
-    public static int score;        // The player's score.
+    public int score;        // The player's score.
 
 	[SerializeField]
 	private float scoringSpeed = 0.2f;

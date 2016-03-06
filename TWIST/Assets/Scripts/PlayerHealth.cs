@@ -4,7 +4,7 @@ using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
 {
-	public int startingHealth = 100;
+    public int startingHealth;
 	public int currentHealth;
 	public Slider healthSlider;
 	public Image damageImage;
@@ -13,13 +13,15 @@ public class PlayerHealth : MonoBehaviour
 	public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
 	public bool isDepleting = false;
 
+    [SerializeField]
+    private GameObject newsImage;
 
-	[SerializeField]
+    [SerializeField]
 	private float fuelDepletionSpeed = 0.1f;
 
 	//Animator anim;
 	//AudioSource playerAudio;
-	bool isDead;
+	public bool isDead;
 	bool damaged;
 
 	float timer;
@@ -67,10 +69,21 @@ public class PlayerHealth : MonoBehaviour
 		isDead = true;
 
 		Debug.Log ("DEAD!!!");
-		//anim.SetTrigger("Die");
+        newsImage.SetActive(true);
 
-		//playerAudio.clip = deathClip;
-		//playerAudio.Play();
+        GameObject ScoreTextGO = GameObject.Find("FinalScoreText").gameObject;
+        Text scoreText = ScoreTextGO.GetComponent<Text>();
+        GameObject playerContainerGO = GameObject.Find("PlayerContainer").gameObject;
+        int finalScore = playerContainerGO.GetComponent<PlayerScore>().score;
+        scoreText.text = ""+finalScore;
 
-	}
+
+        GameObject.Find("PlayerContainer").SetActive(false);
+        GameObject.Find("World").SetActive(false);
+
+
+        //playerAudio.clip = deathClip;
+        //playerAudio.Play();
+
+    }
 }

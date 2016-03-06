@@ -67,6 +67,7 @@
      <Compile Include="Assets\Scripts\RandomRotator.cs" />
      <Compile Include="Assets\Scripts\SideObjPreferences.cs" />
      <Compile Include="Assets\Scripts\SpawnObjects.cs" />
+     <Compile Include="Assets\Scripts\SpecialEffectScript.cs" />
      <Compile Include="Assets\Scripts\TwistBang.cs" />
      <Compile Include="Assets\Scripts\WorldAnimBehaviour.cs" />
      <Compile Include="Assets\Scripts\WorldSetRotation.cs" />

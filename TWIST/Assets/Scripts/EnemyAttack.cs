@@ -15,11 +15,12 @@ public class EnemyAttack : MonoBehaviour
     float timer;
 
 
-    void Awake()
+    void Start()
     {
         player = GameObject.Find("PlayerContainer");
         playerHealth = player.GetComponent<PlayerHealth>();
         //anim = GetComponent<Animator>();
+
     }
 
 

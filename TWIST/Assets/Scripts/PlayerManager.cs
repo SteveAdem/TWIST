@@ -16,6 +16,15 @@ public class PlayerManager : MonoBehaviour
     public GameObject TerraEscavada;
     private bool InstantiateDirty;
 
+    [SerializeField]
+    AudioClip cloudHit;
+    [SerializeField]
+    AudioClip birdHit;
+    [SerializeField]
+    AudioClip crystalHit;
+    [SerializeField]
+    AudioClip oilDropHit;
+
     void Start()
     {
         ManagerGO = GameObject.Find("GameManager");
@@ -34,7 +43,6 @@ public class PlayerManager : MonoBehaviour
         
         for(int i = 1; i < 8; i++) {
             transform.localPosition = new Vector3(transform.localPosition.x + 0.25f, transform.localPosition.y, transform.localPosition.z);
-
             yield return new WaitForSeconds(0.05f);
             transform.localPosition = new Vector3(transform.localPosition.x - 0.25f, transform.localPosition.y, transform.localPosition.z);
             yield return new WaitForSeconds(0.05f);
@@ -50,7 +58,6 @@ public class PlayerManager : MonoBehaviour
             Terra.transform.parent = SideContainer.transform;
             yield return new WaitForSeconds(1f);
             InstantiateDirty = true;
-            Debug.Log("PINTOU");
         }
     }
 
@@ -58,22 +65,27 @@ public class PlayerManager : MonoBehaviour
     public void OnTriggerEnter(Collider col) {
 
         if(col.tag == "Cloud") {
+            GameObject.Find("PlayerContainer").GetComponent<PlayerHealth>().currentHealth -= 10;
+            GetComponent<AudioSource>().PlayOneShot(cloudHit);
             StartCoroutine(SlowPlayerCloud());
-            // tirar vida
             // som a puxar pelo motor
         } else
         if(col.tag == "Bird") {
-            // tirar vida
-            // Instanciar particulas da ave destroçada olé
+            GameObject.Find("PlayerContainer").GetComponent<PlayerHealth>().currentHealth -= 10;
+            GetComponent<AudioSource>().PlayOneShot(birdHit);
+            SpecialEffectScript.Instance.PassarosEffect(col.transform.position);
             Destroy(col.gameObject);
         } else
         if(col.tag == "Crystal") {
-            // perder fuel
+            GameObject.Find("PlayerContainer").GetComponent<PlayerHealth>().currentHealth -= 10;
+            GetComponent<AudioSource>().PlayOneShot(crystalHit);
+            SpecialEffectScript.Instance.CrystalEffect(col.transform.position);
             Destroy(col.gameObject);
             StartCoroutine(abanarSidePlayer());
         } else
         if (col.tag == "FuelDrop") {
-            // + combustivel
+            GameObject.Find("PlayerContainer").GetComponent<PlayerHealth>().currentHealth = 100;
+            GetComponent<AudioSource>().PlayOneShot(oilDropHit);
             Destroy(col.gameObject);
         }
 
