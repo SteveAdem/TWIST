@@ -11,6 +11,8 @@ public class PlayerHealth : MonoBehaviour
 	// public AudioClip deathClip;
 	public float flashSpeed = 5f;
 	public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
+	public bool isDepleting = false;
+
 
 	[SerializeField]
 	private float fuelDepletionSpeed = 0.1f;
@@ -33,6 +35,8 @@ public class PlayerHealth : MonoBehaviour
 
 	void Update()
 	{
+		if (!isDepleting)
+			return;
 		damaged = false;
 		timer += Time.deltaTime;
 		if (timer >= fuelDepletionSpeed) {

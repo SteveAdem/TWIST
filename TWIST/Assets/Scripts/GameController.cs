@@ -25,7 +25,9 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(startWait);
 		GameObject player = GameObject.FindGameObjectWithTag("Player");
 		PlayerScore ps = player.GetComponent<PlayerScore> ();
+		PlayerHealth ph = player.GetComponent<PlayerHealth> ();
 		ps.isScoring = true;
+		ph.isDepleting = true;
         while (true)
         {
             for (int i = 0; i < hazardCount; i++)
