@@ -22,7 +22,7 @@ public class SpawnObjects : MonoBehaviour
     {
         GameManagerGO = GameObject.Find("GameManager");
         GameManagerScript = GameManagerGO.GetComponent<GameManager>();
-        player = GameObject.Find("Players").gameObject;
+        player = GameObject.Find("PlayerContainer").gameObject;
         ps = player.GetComponent<PlayerScore>();
         pd = player.GetComponent<PlayerHealth>();
 
@@ -33,7 +33,7 @@ public class SpawnObjects : MonoBehaviour
     {
         yield return new WaitForSeconds(startWait);
 
-        ps.isScoring = true;
+   //     ps.isScoring = true;
         pd.isDepleting = true;
        
 
@@ -64,7 +64,7 @@ public class SpawnObjects : MonoBehaviour
         if (GameManagerScript.DimNum == 2)
         {
 
-            if (!isSpawning && ps.isScoring)
+            if (!isSpawning)
             {
                 isSpawning = true;
                 int SideObjsIndex = Random.Range(0, SideObjs.Length);
@@ -76,13 +76,12 @@ public class SpawnObjects : MonoBehaviour
         if (GameManagerScript.DimNum == 1)
         {
 
-            if (!isSpawning && ps.isScoring)
+            if (!isSpawning)
             {
                 isSpawning = true;
                 int TopObjsIndex = Random.Range(0, TopObjs.Length);
                 StartCoroutine(SpawnObject(TopObjsIndex, Random.Range(minTime, maxTime), 1));
             }
-            Debug.Log("SPAWN DIM 1");
         }
     }
 }
