@@ -14,6 +14,7 @@ public class PlayerScore : MonoBehaviour
 	[SerializeField]
 	Text text; // Reference to the Text component.
 	float timer;
+	public bool isScoring = false;
 
     void Awake()
     {
@@ -26,6 +27,8 @@ public class PlayerScore : MonoBehaviour
 
     void Update()
     {
+		if (!isScoring)
+			return;
 		timer += Time.deltaTime;
 		if (timer >= scoringSpeed) {
 			score += scoringIncrement;

@@ -61,9 +61,12 @@
      <Compile Include="Assets\Scripts\PlayerScore.cs" />
      <Compile Include="Assets\Scripts\PlayerSwitch.cs" />
      <Compile Include="Assets\Scripts\RandomRotator.cs" />
+<<<<<<< HEAD
+=======
      <Compile Include="Assets\Scripts\ScoreManager.cs" />
      <Compile Include="Assets\Scripts\SideObjPreferences.cs" />
      <Compile Include="Assets\Scripts\SpawnObjects.cs" />
+>>>>>>> fd3c1b25c15cd7606bfd7e388f35725966675d4f
      <Compile Include="Assets\Scripts\WorldAnimBehaviour.cs" />
      <Compile Include="Assets\Scripts\WorldSetRotation.cs" />
  <Reference Include="UnityEngine.UI">

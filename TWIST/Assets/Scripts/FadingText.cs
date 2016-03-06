@@ -1,10 +1,10 @@
-﻿		using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class FadingText : MonoBehaviour {
 
 	[SerializeField]
-	float fadeTime = 1.0f;
+	public float fadeTime = 1.0f;
 
 	[SerializeField]
 	float finalAlpha = 1.0f;
@@ -23,8 +23,8 @@ public class FadingText : MonoBehaviour {
 	void Start () {
 		text = gameObject.GetComponent<UnityEngine.UI.Text> ();
 		text.canvasRenderer.SetAlpha (0.0f);
-		initialPosition = new Vector3 (text.transform.position.x, text.transform.position.y, text.transform.position.z);
-		finalPosition = new Vector3 (text.transform.position.x+150, text.transform.position.y, text.transform.position.z); 
+		initialPosition = new Vector3 (text.transform.position.x-50, text.transform.position.y, text.transform.position.z);
+		finalPosition = new Vector3 (text.transform.position.x+50, text.transform.position.y, text.transform.position.z); 
 	}
 	
 	// Update is called once per frame
@@ -52,9 +52,10 @@ public class FadingText : MonoBehaviour {
 		}
 	}
 		
-	public void fade() {
+	public void fade(string msg) {
 		// fade in
 		if ((fadingIn) || (fadingOut)) return;
+		text.text = msg;
 		text.CrossFadeAlpha (finalAlpha, fadeTime, false);
 		fadingIn = true;
 	}
