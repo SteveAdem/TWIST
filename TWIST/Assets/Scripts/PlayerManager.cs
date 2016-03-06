@@ -7,19 +7,96 @@ public class PlayerManager : MonoBehaviour
     public float tilt;
     private GameObject ManagerGO;
     private GameManager GameManagerScript;
+    public GameObject TopContainer;
+    public GameObject SideContainer;
+    private BGScrollerTop BGScrollerTopScript;
+    private BGScrollerSide BGScrollerSideScript;
+    private bool SlowPlayer;
+    private bool isSlowing;
+    public GameObject TerraEscavada;
+    private bool InstantiateDirty;
 
     void Start()
     {
         ManagerGO = GameObject.Find("GameManager");
         GameManagerScript = ManagerGO.GetComponent<GameManager>();
+        BGScrollerTopScript = TopContainer.GetComponent<BGScrollerTop>();
+        BGScrollerSideScript = SideContainer.GetComponent<BGScrollerSide>();
+    }
+
+    IEnumerator SlowPlayerCloud() {
+        SlowPlayer = true;
+        yield return new WaitForSeconds(3f);
+        SlowPlayer = false;
+    }
+
+    IEnumerator abanarSidePlayer() {
+        
+        for(int i = 1; i < 8; i++) {
+            transform.localPosition = new Vector3(transform.localPosition.x + 0.25f, transform.localPosition.y, transform.localPosition.z);
+
+            yield return new WaitForSeconds(0.05f);
+            transform.localPosition = new Vector3(transform.localPosition.x - 0.25f, transform.localPosition.y, transform.localPosition.z);
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
+
+    IEnumerator MakeDirty()
+    {
+       if(GameManagerScript.DimNum == 2) {
+            InstantiateDirty = false;
+            Vector3 posTerra = new Vector3(transform.position.x, transform.position.y - 1.3f, transform.position.z);
+            GameObject Terra = Instantiate(TerraEscavada, posTerra, Quaternion.FromToRotation(new Vector3(0, 0, 0), new Vector3(0, 0, 0))) as GameObject;
+            Terra.transform.parent = SideContainer.transform;
+            yield return new WaitForSeconds(1f);
+            InstantiateDirty = true;
+            Debug.Log("PINTOU");
+        }
+    }
+
+
+    public void OnTriggerEnter(Collider col) {
+
+        if(col.tag == "Cloud") {
+            StartCoroutine(SlowPlayerCloud());
+            // tirar vida
+            // som a puxar pelo motor
+        } else
+        if(col.tag == "Bird") {
+            // tirar vida
+            // Instanciar particulas da ave destroçada olé
+            Destroy(col.gameObject);
+        } else
+        if(col.tag == "Crystal") {
+            // perder fuel
+            Destroy(col.gameObject);
+            StartCoroutine(abanarSidePlayer());
+        } else
+        if (col.tag == "FuelDrop") {
+            // + combustivel
+            Destroy(col.gameObject);
+        }
+
     }
 
     void FixedUpdate()
     {
+
+        if(SlowPlayer) {
+            BGScrollerTopScript.scrollSpeed = Mathf.Lerp(-4, -1f, 2 * Time.time);
+            isSlowing = true;
+        } else if (SlowPlayer == false && isSlowing == true) {
+            BGScrollerTopScript.scrollSpeed = Mathf.Lerp(-1f, -4, 2 * Time.time);
+            isSlowing = false;
+        }
+
+
         if (GameManagerScript.DimNum == 1)
         {
+
+            // MOVE 
+
             float moveHorizontal = Input.GetAxis("Horizontal");
-     //       float moveVertical = Input.GetAxis("Vertical");
 
             Vector3 movement = new Vector3(moveHorizontal, 0.0f, 0.0f);
             GetComponent<Rigidbody>().velocity = movement * speed;
@@ -32,13 +109,15 @@ public class PlayerManager : MonoBehaviour
             float y = 0;
             float z = GetComponent<Rigidbody>().velocity.x * -tilt;
             GetComponent<Rigidbody>().rotation = Quaternion.Euler(x, y, z);
+
+
         } else
 
         if(GameManagerScript.DimNum == 2) {
-            float moveHorizontal = Input.GetAxis("Horizontal");
-            //       float moveVertical = Input.GetAxis("Vertical");
+            InstantiateDirty = true;
+            float moveVertical = Input.GetAxis("Vertical");
 
-            Vector3 movement = new Vector3(moveHorizontal, 0.0f, 0.0f);
+            Vector3 movement = new Vector3((moveVertical - 2 * moveVertical), 0.0f, 0.0f);
             GetComponent<Rigidbody>().velocity = movement * speed;
 
             GetComponent<Rigidbody>().position = new Vector3
@@ -46,9 +125,20 @@ public class PlayerManager : MonoBehaviour
                 Mathf.Clamp(GetComponent<Rigidbody>().position.x, -4.0f, 4.5f), GetComponent<Rigidbody>().position.y, -5.0f);
 
             float x = 0;
-            float y = 0;
-            float z = GetComponent<Rigidbody>().velocity.x * -tilt;
-            GetComponent<Rigidbody>().rotation = Quaternion.Euler(x, y, z);
+            float y = GetComponent<Rigidbody>().velocity.x * tilt;
+            float z = 0;
+            GetComponent<Rigidbody>().rotation = Quaternion.Euler(x, y, 90 * Time.time);
+
+            if(InstantiateDirty == true) {
+                StartCoroutine(MakeDirty());
+            }
         }
     }
+
+        
+            
+
+    
+
+
 }
