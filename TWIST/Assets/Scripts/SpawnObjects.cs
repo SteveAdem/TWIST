@@ -5,7 +5,8 @@ public class SpawnObjects : MonoBehaviour
 {
 
 
-    public float startWait;
+    float startWait;
+	public bool spawningHalted = true;
 
     bool isSpawning = false;
     public float minTime = 1.0f;
@@ -21,6 +22,7 @@ public class SpawnObjects : MonoBehaviour
     void Start()
     {
         GameManagerGO = GameObject.Find("GameManager");
+		startWait = GameManagerGO.GetComponent<GameController> ().startWait;
         GameManagerScript = GameManagerGO.GetComponent<GameManager>();
         player = GameObject.Find("PlayerContainer").gameObject;
         ps = player.GetComponent<PlayerScore>();
@@ -32,10 +34,7 @@ public class SpawnObjects : MonoBehaviour
     IEnumerator WaveTiming()
     {
         yield return new WaitForSeconds(startWait);
-
-   //     ps.isScoring = true;
-        pd.isDepleting = true;
-       
+		spawningHalted = false;
 
     }
 
@@ -61,6 +60,8 @@ public class SpawnObjects : MonoBehaviour
 
     void Update()
     {
+		if (spawningHalted)
+			return;
         if (GameManagerScript.DimNum == 2)
         {
 

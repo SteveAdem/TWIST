@@ -20,8 +20,17 @@ public class GameManager : MonoBehaviour {
 
 	public Text text;
 
+	private float minTwistTime = 10.0f;
+	private float maxTwistTime = 20.0f;
 	private float nextTwist;
 	private float elapsedTime;
+
+	public bool firstNarrativeDone = false;
+	public bool secondNarrativeStarted = false;
+	bool bothNarrativesDone = false;
+	bool showingNarrative = false;
+
+	public Font[] fontMats;
 
     void Start()
     {
@@ -33,7 +42,6 @@ public class GameManager : MonoBehaviour {
         WorldSetRotationScript = World.GetComponent<WorldSetRotation>();
 		elapsedTime = 0.0f;
 		nextTwist = Random.Range (5.0f, 10.0f);
-
     }
 
 
@@ -47,6 +55,7 @@ public class GameManager : MonoBehaviour {
             // mudar para SIDEVIEW
             DimNum = 2;
 			changeMusic (DimNum);
+			changeFont (DimNum);
             WorldAnimController.SetTrigger("ToSide");
             CameraAnimController.SetTrigger("CamToSide");
         }
@@ -56,6 +65,7 @@ public class GameManager : MonoBehaviour {
 			// mchangeMusicudar para TOPVIEW
             DimNum = 1;
 			changeMusic (DimNum);
+			changeFont (DimNum);
             WorldAnimController.SetTrigger("ToTop");
             CameraAnimController.SetTrigger("CamToTop");
         }
@@ -94,7 +104,13 @@ public class GameManager : MonoBehaviour {
 		}
 		music.UnPause ();
 		ambience.UnPause ();
+	}
 
+	private void changeFont(int dim) {
+		GameObject.Find("FuelText").GetComponent<Text>().font = fontMats[dim-1];
+		GameObject.Find("ScoreText").GetComponent<Text>().font = fontMats[dim-1];
+		GameObject.Find ("Score").GetComponent<Text> ().font = fontMats [dim - 1];
+		GameObject.Find ("PlayerSpeech").GetComponent<Text> ().font = fontMats [dim - 1];
 	}
 
 	private void twistBang() {
@@ -113,14 +129,44 @@ public class GameManager : MonoBehaviour {
     {
 		startMusic ();
 
-        //introText();
-
 		elapsedTime += Time.deltaTime;
-		if (elapsedTime > nextTwist) {
-			ChangeDimension();
-			elapsedTime = 0.0f;
-			nextTwist = Random.Range (5.0f, 10.0f);
+
+		if (!firstNarrativeDone) {
+			showingNarrative = true;
+			if (elapsedTime > GameObject.Find("GameManager").GetComponent<GameController>().startWait) {
+				firstNarrativeDone = true;
+				showingNarrative = false;
+				elapsedTime = 0.0f;
+			}
+			return;
 		}
+
+		if (secondNarrativeStarted) {
+			if (elapsedTime > GameObject.Find("GameManager").GetComponent<GameController>().startWait) {
+				secondNarrativeStarted = false;
+				bothNarrativesDone = true;
+				showingNarrative = false;
+				elapsedTime = 0.0f;
+				nextTwist = Random.Range (5.0f, 10.0f);
+			}
+			return;
+		}
+
+		if (!showingNarrative) {
+			if (elapsedTime > nextTwist) {
+				ChangeDimension ();
+				if (!secondNarrativeStarted && !bothNarrativesDone) {
+					StartCoroutine (GameObject.Find ("GameManager").GetComponent<GameController> ().StartSecondNarrative ());
+					secondNarrativeStarted = true;
+					showingNarrative = true;
+					elapsedTime = 0.0f;
+					return;	
+				}
+				elapsedTime = 0.0f;
+				nextTwist = Random.Range (5.0f, 10.0f);
+			}
+		}
+
 		/*
         if (Input.GetKeyDown(KeyCode.H))
         {
