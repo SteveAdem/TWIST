@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpawnObjects : MonoBehaviour {
+public class SpawnObjects : MonoBehaviour
+{
+
+
+    public float startWait;
 
     bool isSpawning = false;
     public float minTime = 1.0f;
@@ -10,11 +14,29 @@ public class SpawnObjects : MonoBehaviour {
     public GameObject[] TopObjs;
     private GameObject GameManagerGO;
     private GameManager GameManagerScript;
+    private PlayerScore ps;
+    private PlayerHealth pd;
+    private GameObject player;
 
     void Start()
     {
         GameManagerGO = GameObject.Find("GameManager");
         GameManagerScript = GameManagerGO.GetComponent<GameManager>();
+        player = GameObject.Find("PlayerContainer").gameObject;
+        ps = player.GetComponent<PlayerScore>();
+        pd = player.GetComponent<PlayerHealth>();
+
+        StartCoroutine(WaveTiming());
+    }
+
+    IEnumerator WaveTiming()
+    {
+        yield return new WaitForSeconds(startWait);
+
+   //     ps.isScoring = true;
+        pd.isDepleting = true;
+       
+
     }
 
     IEnumerator SpawnObject(int index, float seconds, int Dimension)
@@ -24,10 +46,13 @@ public class SpawnObjects : MonoBehaviour {
 
         yield return new WaitForSeconds(seconds);
 
-        if (Dimension == 1) {
+        if (Dimension == 1)
+        {
             Instantiate(TopObjs[index], spawnPosition, transform.rotation);
-        } else
-        if(Dimension == 2) {
+        }
+        else
+        if (Dimension == 2)
+        {
             Instantiate(SideObjs[index], spawnPosition, transform.rotation);
         }
 
@@ -36,7 +61,8 @@ public class SpawnObjects : MonoBehaviour {
 
     void Update()
     {
-        if (GameManagerScript.DimNum == 2) {
+        if (GameManagerScript.DimNum == 2)
+        {
 
             if (!isSpawning)
             {
@@ -56,7 +82,6 @@ public class SpawnObjects : MonoBehaviour {
                 int TopObjsIndex = Random.Range(0, TopObjs.Length);
                 StartCoroutine(SpawnObject(TopObjsIndex, Random.Range(minTime, maxTime), 1));
             }
-            Debug.Log("SPAWN DIM 1");
         }
     }
 }

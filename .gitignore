@@ -8,6 +8,10 @@
 Library/
 sysinfo.txt
 *.stackdump
+
+TWIST.CSharp.csproj
+
+*.meta
  
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
@@ -42,3 +46,9 @@ TWIST/Assembly-CSharp.csproj
 TWIST/Assembly-CSharp.csproj
 TWIST/Library/CurrentLayout.dwlt
 TWIST/Library/InspectorExpandedItems.asset
+TWIST/Library/assetDatabase3
+TWIST/Library/assetDatabase3
+TWIST/Library/ScriptAssemblies/Assembly-CSharp.dll
+TWIST/Library/ScriptAssemblies/Assembly-CSharp.dll
+TWIST/Library/assetDatabase3
+*.dwlt
